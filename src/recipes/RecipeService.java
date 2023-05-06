@@ -1,5 +1,6 @@
 package recipes;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -7,20 +8,21 @@ import java.util.HashMap;
 @Service
 public class RecipeService {
 
-    Recipe recipe;
+    @Autowired
+    RecipeRepository recipeRepository;
 
-    public void addRecipe(Recipe recipe) {
-        this.recipe = recipe;
+
+    public void save(Recipe recipe) {
+        recipeRepository.save(recipe);
     }
 
-    public Recipe getRecipe() {
-        return recipe;
+    public Recipe getRecipeById(long id) {
+        return recipeRepository.findById(id).get();
     }
 
-    public void save() {
-
+    public void delete(long id) {
+        recipeRepository.deleteById(id);
     }
 
-    HashMap<Integer, Recipe> allRecpies = new HashMap<>();
-
+    HashMap<Integer, Recipe> allRecipes = new HashMap<>();
 }
